@@ -25,20 +25,20 @@ const Navbar = () => {
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
           <div className="flex-shrink-0 text-2xl font-bold text-blue-600 cursor-pointer">
-            Smart<span className="text-gray-800">Deals</span>
+            MovieMaster Pro
           </div>
 
           {/* Desktop Menu */}
           <div className="hidden md:flex space-x-6 text-gray-700 font-medium">
             <Link to="/" className="hover:text-blue-600">Home</Link>
-            <Link to="/allProducts" className="hover:text-blue-600">All Products</Link>
+            <Link to="/allMovies" className="hover:text-blue-600">All Movies</Link>
            {
               user && <>
-                <Link to="/myProducts" className="hover:text-blue-600">My Products</Link>
-                <Link to="/myBids" className="hover:text-blue-600">My Bids</Link>
+                <Link to="/myCollection" className="hover:text-blue-600">My Collection</Link>
+               
               </>
             }
-            <Link to="#" className="hover:text-blue-600">Create Product</Link>
+            
           </div>
 
           {/* Desktop Buttons */}
@@ -96,14 +96,14 @@ const Navbar = () => {
         <div className="md:hidden bg-white border-t border-gray-200">
           <div className="px-4 pt-2 pb-3 space-y-2">
              <Link to="/" className="hover:text-blue-600">Home</Link>
-            <Link to="/allProducts" className="hover:text-blue-600">All Products</Link>
+            <Link to="/allMovies" className="hover:text-blue-600">All Movies</Link>
             {
               user && <>
-                <Link to="/myProducts" className="hover:text-blue-600">My Products</Link>
-                <Link to="/myBids" className="hover:text-blue-600">My Bids</Link>
+                <Link to="/myCollection" className="hover:text-blue-600">My Collection</Link>
+                
               </>
             }
-            <Link to="#" className="hover:text-blue-600">Create Product</Link>
+           
             <div className="flex gap-2 mt-3">
               <Link to="/login" className="w-1/2 px-4 py-2 border border-blue-600 text-blue-600 rounded-lg hover:bg-blue-600 hover:text-white transition">
                 Login

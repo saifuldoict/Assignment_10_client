@@ -9,6 +9,8 @@ import LoginPage from "../pages/LoginPage";
 import RegisterPage from "../pages/RegisterPage";
 
 import Home from "../components/Home/Home";
+import AllMovies from "../pages/AllMovies";
+import MyCollectionPage from "../pages/MyCollectionPage";
 
 
 
@@ -21,6 +23,16 @@ const router = createBrowserRouter([
             { 
                 index: true,
                 element: <Home/>
+            },
+            {
+                path: "/allMovies",
+                element: <AllMovies/>
+            },
+            {
+                path: "/myCollection",
+                element: <PrivateRoute>
+                    <MyCollectionPage/>
+                </PrivateRoute>
             },
            
            
