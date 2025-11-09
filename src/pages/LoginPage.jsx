@@ -1,95 +1,139 @@
-import { useState } from "react";
-import { Link } from "react-router";
-const LoginPage = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+import React, { useState, useContext } from "react";
+import { FaEye } from "react-icons/fa";
+import { IoEyeOff } from "react-icons/io5";
+import { AuthContext } from "../context/AuthProvider";
+import { Link, useNavigate, useLocation } from "react-router";
+import { toast } from "react-toastify";
 
-  const handleSubmit = (e) => {
+const LoginPage = () => {
+  const [show, setShow] = useState(false);
+  const [error, setError] = useState(""); 
+  const { loginUser, loginWithGoogle, resetPassword } = useContext(AuthContext);
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  // Redirect to home page after login
+  const from = location.state?.from?.pathname || "/";
+
+  const handleLogin = async (e) => {
     e.preventDefault();
-    console.log("Email:", email, "Password:", password);
+    const email = e.target.email.value;
+    const password = e.target.password.value;
+    setError("");
+
+    try {
+      await loginUser(email, password);
+      toast.success("Login Successful!");
+      navigate(from, { replace: true });
+    } catch (err) {
+      setError(err.message); 
+      toast.error(err.message);
+    }
+  };
+
+  const handleGoogleLogin = async () => {
+    setError("");
+    try {
+      await loginWithGoogle();
+      toast.success("Logged in with Google!");
+      navigate(from, { replace: true });
+    } catch (err) {
+      setError(err.message);
+      toast.error(err.message);
+    }
+  };
+
+  const handleForgetPassword = async () => {
+    const emailInput = document.querySelector('input[name="email"]')?.value;
+    const email = prompt("Enter your email for password reset:", emailInput || "");
+    if (!email) return;
+
+    try {
+      await resetPassword(email);
+      toast.success("Password reset email sent!");
+    } catch (err) {
+      toast.error(err.message);
+    }
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50">
-      <div className="bg-white shadow-md rounded-2xl p-8 w-full max-w-md">
-        {/* Heading */}
-        <h2 className="text-3xl font-bold text-center text-gray-800 mb-4">
-          Login
+    <div className="flex justify-center min-h-screen items-center bg-gradient-to-br from-indigo-500 via-purple-600 to-pink-500">
+      <div className="w-full max-w-md backdrop-blur-lg bg-white/10 border border-white/20 shadow-2xl rounded-2xl p-8">
+        <h2 className="text-2xl font-semibold mb-5 text-center text-white">
+          Login to Your Account
         </h2>
 
-        {/* Register Link */}
-        <p className="text-center text-gray-600 mb-6">
-          Don’t have an account?{" "}
-          <Link to="/register" className="text-blue-600 hover:underline">
-            Register Now
-          </Link>
-        </p>
+        <form onSubmit={handleLogin} className="space-y-5 text-white">
+          {error && <p className="text-red-400 text-sm">{error}</p>} 
 
-        {/* Form */}
-        <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <label className="block text-gray-700 font-medium mb-1">
-              Email
-            </label>
+            <label className="block text-sm mb-1">Email</label>
             <input
               type="email"
-              placeholder="Enter your email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-500 focus:outline-none"
+              name="email"
+              placeholder="example@email.com"
+              className="input input-bordered w-full bg-white/20 text-white placeholder-white/60"
               required
             />
           </div>
 
-          <div>
-            <label className="block text-gray-700 font-medium mb-1">
-              Password
-            </label>
+          <div className="relative">
+            <label className="block text-sm mb-1">Password</label>
             <input
-              type="password"
-              placeholder="Enter your password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-500 focus:outline-none"
+              type={show ? "text" : "password"}
+              name="password"
+              placeholder="••••••••"
+              className="input input-bordered w-full bg-white/20 text-white placeholder-white/60"
               required
             />
+            <span
+              className="absolute right-[8px] top-[36px] cursor-pointer"
+              onClick={() => setShow(!show)}
+            >
+              {show ? <IoEyeOff size={20} /> : <FaEye size={20} />}
+            </span>
           </div>
 
-          {/* Forgot Password */}
           <div className="text-right">
-            <a href="#" className="text-sm text-blue-600 hover:underline">
-              Forgot Password?
-            </a>
+            <button
+              type="button"
+              onClick={handleForgetPassword}
+              className="text-sm text-pink-300 hover:text-white underline"
+            >
+              Forget Password?
+            </button>
           </div>
 
-          {/* Sign In Button */}
-          <button
-            type="submit"
-            className="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition"
-          >
-            Sign In
+          <button type="submit" className="my-btn w-full bg-pink-500 hover:bg-pink-600">
+            Login
           </button>
+
+          <div className="flex items-center justify-center gap-2 my-2">
+            <div className="h-px w-16 bg-white/30"></div>
+            <span className="text-sm text-white/70">or</span>
+            <div className="h-px w-16 bg-white/30"></div>
+          </div>
+
+          <button
+            type="button"
+            onClick={handleGoogleLogin}
+            className="flex items-center justify-center gap-3 bg-white text-gray-800 px-5 py-2 rounded-lg w-full font-semibold hover:bg-gray-100"
+          >
+            <img
+              src="https://www.svgrepo.com/show/475656/google-color.svg"
+              alt="google"
+              className="w-5 h-5"
+            />
+            Continue with Google
+          </button>
+
+          <p className="text-center text-sm text-white/80 mt-3">
+            Don’t have an account?{" "}
+            <Link to="/register" className="text-pink-300 underline hover:text-white">
+              Register
+            </Link>
+          </p>
         </form>
-
-        {/* Divider */}
-        <div className="flex items-center my-6">
-          <hr className="flex-grow border-gray-300" />
-          <span className="px-3 text-gray-500 text-sm">OR</span>
-          <hr className="flex-grow border-gray-300" />
-        </div>
-
-        {/* Google Sign In */}
-        <button
-          type="button"
-          className="w-full flex items-center justify-center gap-2 border border-gray-300 py-2 rounded-lg hover:bg-gray-100 transition"
-        >
-          <img
-            src="https://www.svgrepo.com/show/475656/google-color.svg"
-            alt="Google"
-            className="w-5 h-5"
-          />
-          <span className="text-gray-700 font-medium">Sign in with Google</span>
-        </button>
       </div>
     </div>
   );

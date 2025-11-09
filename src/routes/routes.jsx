@@ -11,6 +11,8 @@ import RegisterPage from "../pages/RegisterPage";
 import Home from "../components/Home/Home";
 import AllMovies from "../pages/AllMovies";
 import MyCollectionPage from "../pages/MyCollectionPage";
+import MyProfilePage from "../pages/MyProfilePage";
+import ErrorPage from "../pages/ErrorPage";
 
 
 
@@ -29,6 +31,10 @@ const router = createBrowserRouter([
                 element: <AllMovies/>
             },
             {
+                path:"/my-profile",
+                element:<MyProfilePage/>
+            },
+            {
                 path: "/myCollection",
                 element: <PrivateRoute>
                     <MyCollectionPage/>
@@ -44,6 +50,10 @@ const router = createBrowserRouter([
                 path: "/register",
                 element: <RegisterPage/>
             },
+            {
+                path:"/*",
+                element:<ErrorPage/>
+            }
            
             
            
