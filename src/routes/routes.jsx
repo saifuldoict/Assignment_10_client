@@ -15,6 +15,8 @@ import MyProfilePage from "../pages/MyProfilePage";
 import ErrorPage from "../pages/ErrorPage";
 import MovieDetailsPage from "../pages/MovieDetailsPage";
 import UpdateMoviePage from "../pages/UpdateMoviePage";
+import TopRatedMovies from "../pages/TopRatedMovies";
+import GenreSection from "../pages/GenreSection";
 
 
 
@@ -70,6 +72,15 @@ const router = createBrowserRouter([
             {
                 path:"/*",
                 element:<ErrorPage/>
+            },
+            {
+                path:"/top-rated-movies",
+                element:<TopRatedMovies/>
+            },
+            {
+                path:"/genre-section",
+                loader: ({params}) => fetch(`http://localhost:5000/movies/genres/${params.genre}`),
+                element:<GenreSection/>
             }
            
             
