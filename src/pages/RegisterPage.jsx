@@ -1,160 +1,99 @@
-import { useContext, useState } from "react";
-import { Link } from "react-router";
+import React, { useState, useContext } from "react";
+import { FaEye } from "react-icons/fa";
+import { IoEyeOff } from "react-icons/io5";
 import { AuthContext } from "../context/AuthProvider";
+import { useNavigate, Link } from "react-router";
+import { toast } from "react-toastify";
 
 const RegisterPage = () => {
-  const {signInWithGoogle} = useContext(AuthContext);
+  const [error, setError] = useState("");
+  const [show, setShow] = useState(false);
+  const { registerUser, loginWithGoogle } = useContext(AuthContext);
+  const navigate = useNavigate();
 
-  const handleGoogleSignIn = ()=>{
-    signInWithGoogle()
-    .then(result=>{
-    
-      // create user object to send to the backend
-      const newUser = {
-        name: result.displayName,
-        email: result.email,
-        image: result.photoURL,
-      };
-
-      // send user data to the backend
-      fetch('http://localhost:5000/users', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(newUser),
-      })
-      .then(res=>res.json())
-      
-    })
-    .catch(error=>{
-      console.error(error);
-    })  
-  }
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    image: "",
-    password: "",
-  });
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
-  };
-
-  const handleSubmit = (e) => {
+  const handleRegister = async (e) => {
     e.preventDefault();
-    console.log("Register Data:", formData);
+    setError("");
+
+    const name = e.target.name.value.trim();
+    const email = e.target.email.value.trim();
+    const photoURL = e.target.photo.value.trim();
+    const password = e.target.password.value.trim();
+
+
+    if (password.length < 6) return setError("Password must be at least 6 characters.");
+    if (!/[A-Z]/.test(password)) return setError("Password must have an uppercase letter.");
+    if (!/[a-z]/.test(password)) return setError("Password must have a lowercase letter.");
+
+    try {
+      await registerUser(name, email, password, photoURL);
+      toast.success("Registration Successful!");
+      navigate("/");
+    } catch (err) {
+      toast.error(err.message);
+    }
   };
 
+  const handleGoogleLogin = async () => {
+    try {
+      await loginWithGoogle();
+      toast.success("Logged in with Google!");
+      navigate("/");
+    } catch (err) {
+      toast.error(err.message);
+    }
+  };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50 mt-4.5">
-      <div className="bg-white shadow-md rounded-2xl p-8 w-full max-w-md">
-        {/* Heading */}
-        <h2 className="text-3xl font-bold text-center text-gray-800 mb-4">
-          Register
+    <div className="flex justify-center min-h-screen items-center bg-gradient-to-br from-indigo-500 via-purple-600 to-pink-500">
+      <div className="w-full max-w-md backdrop-blur-lg bg-white/10 border border-white/20 shadow-2xl rounded-2xl p-8">
+        <h2 className="text-2xl font-semibold mb-5 text-center text-white">
+          Create Your Account
         </h2>
 
-        {/* Login Link */}
-        <p className="text-center text-gray-600 mb-6">
-          Already have an account?{" "}
-          <Link to="/login" className="text-blue-600 hover:underline">
-            Login Now
-          </Link>
-        </p>
-
-        {/* Form */}
-        <form onSubmit={handleSubmit} className="space-y-4">
+        <form onSubmit={handleRegister} className="space-y-5 text-white">
           <div>
-            <label className="block text-gray-700 font-medium mb-1">
-              Full Name
-            </label>
-            <input
-              type="text"
-              name="name"
-              placeholder="Enter your full name"
-              value={formData.name}
-              onChange={handleChange}
-              className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-500 focus:outline-none"
-              required
-            />
+            <label className="block text-sm mb-1">Name</label>
+            <input type="text" name="name" placeholder="Enter your name" className="input input-bordered w-full bg-white/20 text-white placeholder-white/60" required />
           </div>
 
           <div>
-            <label className="block text-gray-700 font-medium mb-1">
-              Email
-            </label>
-            <input
-              type="email"
-              name="email"
-              placeholder="Enter your email"
-              value={formData.email}
-              onChange={handleChange}
-              className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-500 focus:outline-none"
-              required
-            />
+            <label className="block text-sm mb-1">Email</label>
+            <input type="email" name="email" placeholder="example@email.com" className="input input-bordered w-full bg-white/20 text-white placeholder-white/60" required />
           </div>
 
           <div>
-            <label className="block text-gray-700 font-medium mb-1">
-              Image URL
-            </label>
-            <input
-              type="text"
-              name="image"
-              placeholder="Enter your profile image URL"
-              value={formData.image}
-              onChange={handleChange}
-              className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-500 focus:outline-none"
-            />
+            <label className="block text-sm mb-1">Photo URL</label>
+            <input type="text" name="photo" placeholder="https://example.com/photo.jpg" className="input input-bordered w-full bg-white/20 text-white placeholder-white/60" />
           </div>
 
-          <div>
-            <label className="block text-gray-700 font-medium mb-1">
-              Password
-            </label>
-            <input
-              type="password"
-              name="password"
-              placeholder="Enter your password"
-              value={formData.password}
-              onChange={handleChange}
-              className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-500 focus:outline-none"
-              required
-            />
+          <div className="relative">
+            <label className="block text-sm mb-1">Password</label>
+            <input type={show ? "text" : "password"} name="password" placeholder="••••••••" className="input input-bordered w-full bg-white/20 text-white placeholder-white/60" required />
+            <span className="absolute right-[8px] top-[36px] cursor-pointer" onClick={() => setShow(!show)}>
+              {show ? <IoEyeOff size={20} /> : <FaEye size={20} />}
+            </span>
           </div>
 
-          {/* Register Button */}
-          <button
-            type="submit"
-            className="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition"
-          >
-            Register
+          {error && <p className="text-red-300 text-sm">{error}</p>}
+
+          <button type="submit" className="my-btn w-full bg-pink-500 hover:bg-pink-600">Register</button>
+
+          <div className="flex items-center justify-center gap-2 my-2">
+            <div className="h-px w-16 bg-white/30"></div>
+            <span className="text-sm text-white/70">or</span>
+            <div className="h-px w-16 bg-white/30"></div>
+          </div>
+
+          <button type="button" onClick={handleGoogleLogin} className="flex items-center justify-center gap-3 bg-white text-gray-800 px-5 py-2 rounded-lg w-full font-semibold hover:bg-gray-100">
+            <img src="https://www.svgrepo.com/show/475656/google-color.svg" alt="google" className="w-5 h-5" />
+            Continue with Google
           </button>
+
+          <p className="text-center text-sm text-white/80 mt-3">
+            Already have an account? <Link to="/login" className="text-pink-300 underline hover:text-white">Login here</Link>
+          </p>
         </form>
-
-        {/* Divider */}
-        <div className="flex items-center my-6">
-          <hr className="flex-grow border-gray-300" />
-          <span className="px-3 text-gray-500 text-sm">OR</span>
-          <hr className="flex-grow border-gray-300" />
-        </div>
-
-        {/* Google Sign Up */}
-        <button
-          onClick={handleGoogleSignIn}
-          type="button"
-          className="w-full flex items-center justify-center gap-2 border border-gray-300 py-2 rounded-lg hover:bg-gray-100 transition"
-        >
-          <img
-            src="https://www.svgrepo.com/show/475656/google-color.svg"
-            alt="Google"
-            className="w-5 h-5"
-          />
-          <span className="text-gray-700 font-medium">Sign up with Google</span>
-        </button>
       </div>
     </div>
   );
