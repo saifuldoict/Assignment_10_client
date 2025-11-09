@@ -33,6 +33,7 @@ const MovieDetailsPage = () => {
   };
 
   const handleEdit = () => {
+     
     navigate(`/movies/update/${movie._id}`);
   };
 
@@ -59,7 +60,7 @@ const MovieDetailsPage = () => {
           <p className="text-lg mb-2"><span className="font-semibold">Country:</span> {movie.country}</p>
           <p className="text-lg mb-2"><span className="font-semibold">Added By:</span> {movie.addedBy}</p>
 
-          {/* ✅ Only show Edit/Delete if this user added the movie */}
+        
           {user?.email === movie?.addedBy && (
             <div className="mt-6 flex gap-4">
               <button

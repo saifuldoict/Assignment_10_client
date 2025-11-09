@@ -17,6 +17,7 @@ import MovieDetailsPage from "../pages/MovieDetailsPage";
 import UpdateMoviePage from "../pages/UpdateMoviePage";
 import TopRatedMovies from "../pages/TopRatedMovies";
 import GenreSection from "../pages/GenreSection";
+import AddMoviePage from "../pages/AddMoviePage";
 
 
 
@@ -53,14 +54,11 @@ const router = createBrowserRouter([
             },
             {
                 path: "/movies/update/:id",
-                loader: ({params}) => fetch(`http://localhost:5000/movies/update/${params.id}`),
-                element: <PrivateRoute>
-                    <UpdateMoviePage/>
-                </PrivateRoute>
+                element: <UpdateMoviePage />,
+                loader: ({ params }) => fetch(`http://localhost:5000/movies/${params.id}`),
+                   
             },
 
-           
-           
             {
                 path: "/login",
                 element: <LoginPage/>
@@ -79,8 +77,14 @@ const router = createBrowserRouter([
             },
             {
                 path:"/genre-section",
-                loader: ({params}) => fetch(`http://localhost:5000/movies/genres/${params.genre}`),
+               // loader: ({params}) => fetch(`http://localhost:5000/movies/genres/${params.genre}`),
                 element:<GenreSection/>
+            },
+            {
+                path:"/add-movie",
+                element:<PrivateRoute>
+                    <AddMoviePage/>
+                </PrivateRoute>
             }
            
             

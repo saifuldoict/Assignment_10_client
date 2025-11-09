@@ -100,7 +100,7 @@ const FooterPage = () => {
       <div className="border-t border-gray-300 py-4 text-center text-sm">
         <p>
           © {new Date().getFullYear()}{" "}
-          <span style={{ color: "#7cbc5e", fontWeight: "600" }}>PetCare</span>.
+          <span style={{ color: "#7cbc5e", fontWeight: "600" }}>MovieMaster Pro</span>.
           All rights reserved.
         </p>
       </div>

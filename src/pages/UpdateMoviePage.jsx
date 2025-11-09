@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useContext } from "react";
-import { Link, useNavigate } from "react-router";
 import { AuthContext } from "../context/AuthProvider";
-
+import { useNavigate } from "react-router";
+import { Link } from "react-router";
 const MyCollectionPage = () => {
   const { user } = useContext(AuthContext);
   const [movies, setMovies] = useState([]);
@@ -29,9 +29,12 @@ const MyCollectionPage = () => {
       });
   };
 
+  const handleUpdate =()=>{
+    
+  }
   return (
     <div className="p-6 max-w-6xl mx-auto">
-      <h2 className="text-3xl font-bold mb-6 text-center">🎬 My Movie Collection</h2>
+      <h2 className="text-3xl font-bold mb-6 text-center">My Movie Collection</h2>
       {movies.length === 0 ? (
         <p className="text-center text-gray-600">You haven’t added any movies yet.</p>
       ) : (
@@ -51,7 +54,7 @@ const MyCollectionPage = () => {
 
               <div className="mt-auto flex gap-3">
                 <button
-                  onClick={() => navigate(`/movies/update/${movie._id}`)}
+                  onClick={() => navigate(`/movies/update/${movie._id}`)} 
                   className="bg-blue-600 text-white px-3 py-1 rounded-lg hover:bg-blue-700 transition"
                 >
                   Edit

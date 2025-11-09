@@ -76,6 +76,12 @@ const Navbar = () => {
                 >
                   My Collection
                 </button>
+                <button
+                  onClick={() => handleNavigation("/add-movie")}
+                  className="link link-hover"
+                >
+                  Add Movie
+                </button>
                 {user && (
                   <button
                     onClick={() => handleNavigation("/my-profile")}
@@ -163,6 +169,12 @@ const Navbar = () => {
             >
               My Collection
             </button>
+            <button
+                  onClick={() => handleNavigation("/add-movie")}
+                  className="link link-hover"
+                >
+                  Add Movie
+                </button>
             {user && (
               <button
                 onClick={() => handleNavigation("/my-profile")}
