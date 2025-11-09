@@ -65,7 +65,7 @@ const Navbar = () => {
                   Home
                 </button>
                 <button
-                  onClick={() => handleNavigation("/allMovies")}
+                  onClick={() => handleNavigation("/movies")}
                   className="link link-hover"
                 >
                   All Movies
