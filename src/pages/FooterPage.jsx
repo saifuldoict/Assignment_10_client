@@ -10,7 +10,7 @@ import {
 
 const FooterPage = () => {
   return (
-    <footer className="bg-base-300 text-base-content mt-10">
+    <footer className="bg-[#540863] text-white mt-10">
    
       <div className="max-w-6xl mx-auto px-6 py-10 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
     
@@ -22,7 +22,7 @@ const FooterPage = () => {
             Contact Us
           </h2>
           <p className="flex items-center justify-center sm:justify-start gap-2 mb-2">
-            <FaPhoneAlt className="text-[#7cbc5e]" /> +880 1745032477
+            <FaPhoneAlt className="text-[#7cbc5e]" /> +880 1745032466
           </p>
           <p className="flex items-center justify-center sm:justify-start gap-2 mb-2">
             <FaEnvelope className="text-[#7cbc5e]" /> saifulnhk@gmail.com

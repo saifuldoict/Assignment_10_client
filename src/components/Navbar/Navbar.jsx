@@ -32,11 +32,11 @@ const Navbar = () => {
 
   return (
     <>
-      <nav className="bg-white shadow-md text-gray-800 relative z-50">
+      <nav className="bg-white shadow-md text-gray-800 relative z-50 p-2.5">
         <div className="max-w-[1200px] mx-auto px-4">
           <div className="flex justify-between items-center h-16 navbar">
       
-            <div>
+            <div className="">
               <Link to={"/"} className="flex items-center gap-2">
                 <button
                   onClick={() => handleNavigation("/")}

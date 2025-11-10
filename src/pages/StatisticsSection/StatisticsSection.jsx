@@ -6,7 +6,7 @@ const StatisticsSection = () => {
   const [loadingMovies, setLoadingMovies] = useState(true);
   const [loadingUsers, setLoadingUsers] = useState(true);
 
-  // Fetch total movies
+
   useEffect(() => {
     const fetchMovies = async () => {
       try {
@@ -23,7 +23,7 @@ const StatisticsSection = () => {
     fetchMovies();
   }, []);
 
-  // Fetch total users
+
   useEffect(() => {
     const fetchUsers = async () => {
       try {
