@@ -4,23 +4,23 @@ import { toast } from "react-toastify";
 import { useNavigate } from "react-router";
 
 const AddMoviePage = () => {
-  const { user, loading } = useContext(AuthContext); // if your AuthProvider has loading state
+  const { user, loading } = useContext(AuthContext); 
   const navigate = useNavigate();
-  const toastShown = useRef(false); // prevents double toast
+  const toastShown = useRef(false); 
 
-  // 🔒 Protect the page
+ 
   useEffect(() => {
     if (!loading && !user && !toastShown.current) {
-      toastShown.current = true; // mark toast as shown
+      toastShown.current = true; 
       toast.warn("Please log in to add a movie.");
       navigate("/login");
     }
   }, [user, loading, navigate]);
 
-  // If not logged in, do not render the form
+
   if (!user) return null;
 
-  // Form submit handler
+
   const handleFormSubmit = (e) => {
     e.preventDefault();
     const form = e.target;
@@ -40,7 +40,7 @@ const AddMoviePage = () => {
       addedBy: user.email,
     };
 
-    fetch("http://localhost:5000/movies/add", {
+    fetch("https://assignment-10-server-fcwh.vercel.app/movies/add", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(newMovie),
@@ -48,7 +48,7 @@ const AddMoviePage = () => {
       .then((res) => res.json())
       .then((data) => {
         if (data.insertedId || data.acknowledged) {
-          toast.success("🎬 Movie added successfully!");
+          toast.success(" Movie added successfully!");
           form.reset();
           navigate("/movies/my-collection");
         } else {
@@ -62,7 +62,7 @@ const AddMoviePage = () => {
   };
 
   return (
-    <div className="p-6 max-w-xl mx-auto bg-white shadow-md rounded-lg">
+    <div className="p-6 max-w-xl mx-auto bg-white shadow-md rounded-lg text-pink-400">
       <h2 className="text-3xl font-bold mb-6 text-center">Add a New Movie</h2>
 
       <form onSubmit={handleFormSubmit} className="space-y-4">
@@ -72,7 +72,7 @@ const AddMoviePage = () => {
             type="text"
             name="title"
             required
-            className="mt-1 block w-full border border-gray-300 rounded-md p-2"
+            className="mt-1  block w-full border border-gray-300 rounded-md p-2"
           />
         </div>
 

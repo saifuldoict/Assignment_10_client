@@ -35,12 +35,12 @@ const router = createBrowserRouter([
             },
             {
                 path: "/movies",
-                loader: () => fetch("http://localhost:5000/movies"),
+                loader: () => fetch("https://assignment-10-server-fcwh.vercel.app/movies"),
                 element: <AllMovies/>
             },
             {
                 path: "/movies/:id",
-                loader: ({params}) => fetch(`http://localhost:5000/movies/${params.id}`),
+                loader: ({params}) => fetch(`https://assignment-10-server-fcwh.vercel.app/${params.id}`),
                 element: <MovieDetailsPage/>
 
             },
@@ -57,7 +57,7 @@ const router = createBrowserRouter([
             {
                 path: "/movies/update/:id",
                 element: <UpdateMoviePage />,
-                loader: ({ params }) => fetch(`http://localhost:5000/movies/${params.id}`),
+                loader: ({ params }) => fetch(`https://assignment-10-server-fcwh.vercel.app/movies/${params.id}`),
                    
             },
 

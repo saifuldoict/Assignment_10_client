@@ -10,7 +10,7 @@ const MovieDetailsPage = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch(`http://localhost:5000/movies/${loaderMovie._id}`)
+    fetch(`https://assignment-10-server-fcwh.vercel.app/movies/${loaderMovie._id}`)
       .then((res) => res.json())
       .then((data) => setMovie(data))
       .catch((err) => console.error(err));
@@ -20,7 +20,7 @@ const MovieDetailsPage = () => {
     const confirmDelete = window.confirm("Are you sure you want to delete this movie?");
     if (!confirmDelete) return;
 
-    fetch(`http://localhost:5000/movies/${movie._id}`, {
+    fetch(`https://assignment-10-server-fcwh.vercel.app/movies/${movie._id}`, {
       method: "DELETE",
     })
       .then((res) => res.json())

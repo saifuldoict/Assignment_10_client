@@ -10,7 +10,7 @@ const StatisticsSection = () => {
   useEffect(() => {
     const fetchMovies = async () => {
       try {
-        const res = await fetch("http://localhost:5000/movies");
+        const res = await fetch("https://assignment-10-server-fcwh.vercel.app/movies");
         const data = await res.json();
         setTotalMovies(data.length);
       } catch (err) {
@@ -27,7 +27,7 @@ const StatisticsSection = () => {
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const res = await fetch("http://localhost:5000/users");
+        const res = await fetch("https://assignment-10-server-fcwh.vercel.app/users");
         const data = await res.json();
         setTotalUsers(data.length);
       } catch (err) {

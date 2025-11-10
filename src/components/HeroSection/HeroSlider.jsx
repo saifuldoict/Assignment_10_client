@@ -21,7 +21,8 @@ const HeroSlider = () => {
   useEffect(() => {
     const fetchSlides = async () => {
       try {
-        const res = await fetch("http://localhost:5000/sliders");
+        const res = await fetch("https://assignment-10-server-fcwh.vercel.app/sliders");
+       
         const data = await res.json();
         console.log("Slides fetched:", data);
         setSlides(data);
@@ -85,7 +86,7 @@ const HeroSlider = () => {
           ? slide.posterUrl
           : slide.url?.startsWith("http")
           ? slide.url
-          : `http://localhost:5000/${slide.image || slide.posterUrl || slide.url}`;
+          : `https://assignment-10-server-fcwh.vercel.app/${slide.image || slide.posterUrl || slide.url}`;
 
         return (
           <div

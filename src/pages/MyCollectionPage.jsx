@@ -9,7 +9,7 @@ const MyCollectionPage = () => {
 
   useEffect(() => {
     if (user?.email) {
-      fetch(`http://localhost:5000/movies?addedBy=${user.email}`)
+      fetch(`https://assignment-10-server-fcwh.vercel.app/movies?addedBy=${user.email}`)
         .then((res) => res.json())
         .then((data) => setMovies(data))
         .catch((err) => console.error(err));

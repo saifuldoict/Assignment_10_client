@@ -10,7 +10,7 @@ const TopRatedMovies = () => {
   useEffect(() => {
     const fetchTopRatedMovies = async () => {
       try {
-        const res = await fetch("http://localhost:5000/movies/top-rated");
+        const res = await fetch("https://assignment-10-server-fcwh.vercel.app/movies/top-rated");
         const data = await res.json();
         setTopRatedMovies(data);
       } catch (err) {

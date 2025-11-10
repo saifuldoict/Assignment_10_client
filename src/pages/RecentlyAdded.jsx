@@ -11,7 +11,7 @@ const navigate = useNavigate();
     const fetchRecentMovies = async () => {
       try {
         const res = await fetch(
-          "http://localhost:5000/movies/recently-added"
+          "https://assignment-10-server-fcwh.vercel.app/movies/recently-added"
         );
         const data = await res.json();
         setRecentMovies(data);

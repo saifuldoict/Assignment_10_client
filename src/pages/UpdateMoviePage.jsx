@@ -28,7 +28,7 @@ const UpdateMoviePage = () => {
 
 
   useEffect(() => {
-    fetch(`http://localhost:5000/movies/${id}`)
+    fetch(`https://assignment-10-server-fcwh.vercel.app/movies/${id}`)
       .then((res) => res.json())
       .then((data) => {
         setMovie(data);
@@ -52,7 +52,7 @@ const UpdateMoviePage = () => {
     }
 
 
-    fetch(`http://localhost:5000/movies/update/${id}`, {
+    fetch(`https://assignment-10-server-fcwh.vercel.app/movies/update/${id}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(movie),
