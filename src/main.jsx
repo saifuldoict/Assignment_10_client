@@ -1,17 +1,19 @@
-import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
-import './index.css'
-import AuthProvider from './context/AuthProvider.jsx';  
-import { RouterProvider } from 'react-router';
-import router from './routes/routes.jsx';
-import { ToastContainer } from 'react-toastify';
+import React from "react";
+import { StrictMode } from "react";
+import { createRoot } from "react-dom/client";
+import "./index.css";
+import AuthProvider from "./context/AuthProvider.jsx";
+import { RouterProvider } from "react-router";
+import router from "./routes/routes.jsx";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css"; // make sure toast styles are imported!
 
-createRoot(document.getElementById('root')).render(
+createRoot(document.getElementById("root")).render(
   <StrictMode>
-  <AuthProvider>
-    <RouterProvider router ={router}/>
-    <ToastContainer
-     position="top-center"
+    <AuthProvider>
+      <RouterProvider router={router} />
+      <ToastContainer
+        position="top-center"
         autoClose={3000}
         hideProgressBar={false}
         newestOnTop={false}
@@ -19,7 +21,7 @@ createRoot(document.getElementById('root')).render(
         pauseOnHover
         draggable
         theme="colored"
-    />
-  </AuthProvider>
-  </StrictMode>,
-)
+      />
+    </AuthProvider>
+  </StrictMode>
+);

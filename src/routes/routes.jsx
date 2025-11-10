@@ -1,5 +1,6 @@
+import React from "react";
 import { createBrowserRouter } from "react-router";
-import Layout from "../components/Layout";
+ 
 
 import PrivateRoute from "./PrivateRoute";
 
@@ -18,6 +19,7 @@ import UpdateMoviePage from "../pages/UpdateMoviePage";
 import TopRatedMovies from "../pages/TopRatedMovies";
 import GenreSection from "../pages/GenreSection";
 import AddMoviePage from "../pages/AddMoviePage";
+import Layout from "../components/Layout";
 
 
 
@@ -85,7 +87,7 @@ const router = createBrowserRouter([
                 element:<PrivateRoute>
                     <AddMoviePage/>
                 </PrivateRoute>
-            }
+            },
            
             
            
