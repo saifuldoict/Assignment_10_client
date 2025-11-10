@@ -1,23 +1,25 @@
 import React from "react";
-
 import { Star } from "lucide-react";
 import { Link } from "react-router";
 
-const showMovie = ({ movie }) => {
+const ShowMovie = ({ movie }) => {
   const { _id, title, rating, genre, releaseYear, posterUrl } = movie;
+
+  const stars = Array.from({ length: 5 }, (_, index) => index < rating);
 
   return (
     <div className="bg-white shadow-md rounded-2xl overflow-hidden hover:shadow-lg transition-transform hover:-translate-y-1">
-      <img
-        src={posterUrl}
-        alt={title}
-        className="w-full h-64 object-cover"
-      />
+      <img src={posterUrl} alt={title} className="w-full h-64 object-cover" />
       <div className="p-4">
         <h2 className="text-xl font-semibold text-gray-800 mb-1">{title}</h2>
         <div className="flex items-center text-yellow-500 text-sm mb-2">
-          <Star className="w-4 h-4 mr-1 fill-yellow-500" />
-          <span className="font-medium text-gray-700">{rating}</span>
+          {stars.map((filled, index) => (
+            <Star
+              key={index}
+              className={`w-4 h-4 mr-1 ${filled ? "fill-yellow-500" : "fill-gray-300"}`}
+            />
+          ))}
+          <span className="font-medium text-gray-700 ml-1">{rating}</span>
         </div>
         <p className="text-gray-600 text-sm mb-1">
           <span className="font-semibold">Genre:</span> {genre}
@@ -36,4 +38,4 @@ const showMovie = ({ movie }) => {
   );
 };
 
-export default showMovie;
+export default ShowMovie;

@@ -31,7 +31,7 @@ const GenreSection = () => {
           <div
             key={genre}
             onClick={() => handleGenreClick(genre)}
-            className="cursor-pointer p-4 bg-white rounded-xl shadow-md hover:bg-[#d72050] hover:text-white transition-colors text-center font-semibold"
+            className="cursor-pointer p-4 bg-white rounded-xl shadow-md hover:bg-[#d72050] text-black hover:text-white transition-colors text-center font-semibold"
           >
             {genre}
           </div>

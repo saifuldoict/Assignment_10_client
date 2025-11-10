@@ -178,6 +178,16 @@ const AddMoviePage = () => {
             className="mt-1 block w-full border border-gray-300 rounded-md p-2 bg-gray-100 cursor-not-allowed"
           />
         </div>
+        <div>
+           <label className="block text-sm font-medium">Added Date</label>
+          <input
+            type="text"
+            name="date"
+            value={new Date().toLocaleDateString()}
+            readOnly
+            className="mt-1 block w-full border border-gray-300 rounded-md p-2 bg-gray-100 cursor-not-allowed"
+          />
+        </div>
 
         <button
           type="submit"

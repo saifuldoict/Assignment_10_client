@@ -48,7 +48,7 @@ const RegisterPage = () => {
     <div className="flex justify-center min-h-screen items-center bg-gradient-to-br from-indigo-500 via-purple-600 to-pink-500">
       <div className="w-full max-w-md backdrop-blur-lg bg-white/10 border border-white/20 shadow-2xl rounded-2xl p-8">
         <h2 className="text-2xl font-semibold mb-5 text-center text-white">
-          Create Your Account
+          Register
         </h2>
 
         <form onSubmit={handleRegister} className="space-y-5 text-white">
@@ -77,7 +77,9 @@ const RegisterPage = () => {
 
           {error && <p className="text-red-300 text-sm">{error}</p>}
 
-          <button type="submit" className="my-btn w-full bg-pink-500 hover:bg-pink-600">Register</button>
+          <button type="submit" className="my-btn w-full bg-pink-500 hover:bg-pink-600 p-2.5 
+             transition transform duration-300 ease-in-out 
+             hover:scale-105">Register</button>
 
           <div className="flex items-center justify-center gap-2 my-2">
             <div className="h-px w-16 bg-white/30"></div>

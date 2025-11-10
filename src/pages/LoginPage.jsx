@@ -60,7 +60,7 @@ const LoginPage = () => {
     <div className="flex justify-center min-h-screen items-center bg-gradient-to-br from-indigo-500 via-purple-600 to-pink-500">
       <div className="w-full max-w-md backdrop-blur-lg bg-white/10 border border-white/20 shadow-2xl rounded-2xl p-8">
         <h2 className="text-2xl font-semibold mb-5 text-center text-white">
-          Login to Your Account
+          Login 
         </h2>
 
         <form onSubmit={handleLogin} className="space-y-5 text-white">
@@ -104,7 +104,9 @@ const LoginPage = () => {
             </button>
           </div>
 
-          <button type="submit" className="my-btn w-full bg-pink-500 hover:bg-pink-600">
+          <button type="submit" className="my-btn w-full bg-pink-500 hover:bg-pink-600 p-2.5 
+             transition transform duration-300 ease-in-out 
+             hover:scale-105">
             Login
           </button>
 

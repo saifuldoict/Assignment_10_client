@@ -87,7 +87,7 @@ const router = createBrowserRouter([
                 element:<PrivateRoute>
                     <AddMoviePage/>
                 </PrivateRoute>
-            },
+            }
            
             
            

@@ -17,12 +17,13 @@ const HeroSlider = () => {
     reset: true,
   });
 
-  // Fetch slides from API
+
   useEffect(() => {
     const fetchSlides = async () => {
       try {
         const res = await fetch("http://localhost:5000/sliders");
         const data = await res.json();
+        console.log("Slides fetched:", data);
         setSlides(data);
       } catch (err) {
         console.error("Failed to fetch slides:", err);
@@ -31,7 +32,7 @@ const HeroSlider = () => {
     fetchSlides();
   }, []);
 
-  // Auto slide
+
   useEffect(() => {
     if (!paused && slides.length > 0) {
       slideInterval.current = setInterval(() => {
@@ -61,33 +62,51 @@ const HeroSlider = () => {
   const prevSlide = () =>
     setCurrentSlide((currentSlide - 1 + slides.length) % slides.length);
 
-  if (slides.length === 0) return <div>Loading slides...</div>;
+  if (slides.length === 0)
+    return (
+      <div className="w-full h-[500px] flex items-center justify-center text-gray-500">
+        Loading slides...
+      </div>
+    );
 
   return (
     <div
-      className="relative w-full h-[500px] md:h-[600px] overflow-hidden rounded-2xl shadow-xl"
+      className="relative w-full h-[300px] md:h-[300px] overflow-hidden rounded-2xl shadow-xl"
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
       onTouchStart={handleTouchStart}
       onTouchEnd={handleTouchEnd}
     >
-      {slides.map((slide, index) => (
-        <animated.div
-          key={slide.id}
-          style={index === currentSlide ? slideAnimation : { display: "none" }}
-          className={`absolute inset-0 transition-opacity duration-700 ${
-            index === currentSlide ? "opacity-100" : "opacity-0"
-          }`}
-        >
-          <img
-            src={slide.image} // make sure your API returns `image` field
-            alt={`Slide ${index + 1}`}
-            className="w-full h-full object-cover"
-          />
-        </animated.div>
-      ))}
+     
+      {slides.map((slide, index) => {
+        const imageSrc = slide.image?.startsWith("http")
+          ? slide.image
+          : slide.posterUrl?.startsWith("http")
+          ? slide.posterUrl
+          : slide.url?.startsWith("http")
+          ? slide.url
+          : `http://localhost:5000/${slide.image || slide.posterUrl || slide.url}`;
 
-      {/* Navigation buttons */}
+        return (
+          <div
+            key={slide._id || slide.id || index}
+            style={index === currentSlide ? slideAnimation : { display: "none" }}
+            className={`absolute inset-0 transition-opacity duration-700 `}
+          >
+            <img
+              src={imageSrc}
+              alt={`Slide ${index + 1}`}
+              className="w-full h-full object-cover"
+              onError={(e) => {
+                console.warn("Image failed to load:", imageSrc);
+                e.target.src = "https://via.placeholder.com/1200x600?text=No+Image";
+              }}
+            />
+          </div>
+        );
+      })}
+
+ 
       <div className="absolute flex justify-between items-center inset-x-3 top-1/2 transform -translate-y-1/2">
         <button
           onClick={prevSlide}
@@ -101,27 +120,6 @@ const HeroSlider = () => {
         >
           ❯
         </button>
-      </div>
-
-      {/* Dots indicator */}
-      <div className="absolute bottom-6 flex justify-center w-full gap-3">
-        {slides.map((_, i) => (
-          <button
-            key={i}
-            onClick={() => setCurrentSlide(i)}
-            className={`w-3 h-3 rounded-full transition-all ${
-              i === currentSlide ? "bg-[#d72050]" : "bg-gray-400"
-            }`}
-          ></button>
-        ))}
-      </div>
-
-      {/* Progress bar */}
-      <div className="absolute bottom-0 left-0 w-full h-1 bg-gray-300">
-        <div
-          className="h-1 bg-[#d72050] transition-all duration-150 ease-linear"
-          style={{ width: `${progress}%` }}
-        ></div>
       </div>
     </div>
   );

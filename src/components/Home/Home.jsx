@@ -1,5 +1,5 @@
 import React from 'react'
-import HeroSlider from '../HeroSection/HeroSlider'
+import HeroSlider from '../HeroSection/HeroSlider.jsx'
 import StatisticsSection from '../../pages/StatisticsSection/StatisticsSection'
 import TopRatedMovies from '../../pages/TopRatedMovies'
 import RecentlyAdded from '../../pages/RecentlyAdded'

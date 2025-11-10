@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useContext } from "react";
 import { useLoaderData, useNavigate } from "react-router";
 import { AuthContext } from "../context/AuthProvider";
+import { Star } from "lucide-react";
 
 const MovieDetailsPage = () => {
   const loaderMovie = useLoaderData();
@@ -39,7 +40,7 @@ const MovieDetailsPage = () => {
 
   return (
     <div className="p-6 max-w-4xl mx-auto bg-white rounded-lg shadow-md">
-      <h2 className="text-3xl font-bold mb-4 text-center">{movie.title}</h2>
+      <h2 className="text-3xl text-pink-700 font-bold mb-4 text-center">{movie.title}</h2>
 
       <div className="flex flex-col md:flex-row gap-6">
         <img
@@ -48,7 +49,7 @@ const MovieDetailsPage = () => {
           className="w-full md:w-1/2 h-[500px] object-cover rounded-lg shadow-md"
         />
 
-        <div className="md:w-1/2 md:ml-6 text-left">
+        <div className="md:w-1/2 md:ml-6 text-left text-black">
           <p className="text-lg mb-2"><span className="font-semibold">Rating:</span> {movie.rating}</p>
           <p className="text-lg mb-2"><span className="font-semibold">Genre:</span> {movie.genre}</p>
           <p className="text-lg mb-2"><span className="font-semibold">Release Year:</span> {movie.releaseYear}</p>
