@@ -1,4 +1,4 @@
-//import React, { createContext, useState, useEffect } from "react";
+
 import React,{ createContext, useState,useEffect } from "react";
 import {
   getAuth,
@@ -13,9 +13,6 @@ import {
 } from "firebase/auth";
 import app from "../firebase/firebase.init";
 
-
-
-
 export const AuthContext = createContext();
 
 
@@ -26,6 +23,27 @@ const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
+  // save user to backend database.
+
+  const saveUserToDB = async (firebaseUser)=>{
+    if(!firebaseUser?.email) return;
+    const userData = {
+      name: firebaseUser.displayName || "User",
+      email: firebaseUser.email,
+      photoURL: firebaseUser.photoURL || "",
+      createdAt: new Date(),
+    };
+    try{
+      await fetch("https://assignment-10-server-fcwh.vercel.app/users", {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify(userData),
+      });
+
+    } catch (error){
+      console.error("Failed to save user to DB", error)
+    }
+  };
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
@@ -42,6 +60,7 @@ const AuthProvider = ({ children }) => {
     try {
       const result = await createUserWithEmailAndPassword(auth, email, password);
       await updateProfile(result.user, { displayName: name, photoURL });
+      await saveUserToDB(result.user, {displayName: name, photoURL});
       setUser(result.user);
       return result.user;
     } finally {
@@ -66,6 +85,7 @@ const AuthProvider = ({ children }) => {
     setLoading(true);
     try {
       const result = await signInWithPopup(auth, googleProvider);
+      await saveUserToDB(result.user);
       setUser(result.user);
       return result.user;
     } finally {

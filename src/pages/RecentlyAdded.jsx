@@ -1,4 +1,3 @@
-// RecentlyAdded.jsx
 import React, { useEffect, useState } from "react";
 import "animate.css";
 import { useNavigate } from "react-router";
@@ -6,7 +5,8 @@ import { useNavigate } from "react-router";
 const RecentlyAdded = () => {
   const [recentMovies, setRecentMovies] = useState([]);
   const [loading, setLoading] = useState(true);
-const navigate = useNavigate(); 
+  const navigate = useNavigate();
+
   useEffect(() => {
     const fetchRecentMovies = async () => {
       try {
@@ -14,7 +14,13 @@ const navigate = useNavigate();
           "https://assignment-10-server-fcwh.vercel.app/movies/recently-added"
         );
         const data = await res.json();
-        setRecentMovies(data);
+
+  
+        const sorted = data
+          .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
+          .slice(0, 6);
+
+        setRecentMovies(sorted);
       } catch (err) {
         console.error("Failed to fetch recently added movies:", err);
       } finally {
@@ -36,8 +42,9 @@ const navigate = useNavigate();
         {recentMovies.map((movie, index) => (
           <div
             key={movie._id}
-             onClick={() => navigate(`/movies/${movie._id}`)} 
-            className={`p-4 bg-white rounded-xl shadow-md hover:shadow-xl transition-shadow animate__animated animate__fadeInUp animate__delay-${index + 1}s`}
+            onClick={() => navigate(`/movies/${movie._id}`)}
+            className={`p-4 bg-white rounded-xl shadow-md hover:shadow-xl transition-shadow animate__animated animate__fadeInUp`}
+            style={{ animationDelay: `${index * 0.2}s` }} 
           >
             <img
               src={movie.posterUrl}

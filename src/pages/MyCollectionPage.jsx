@@ -2,19 +2,42 @@ import React, { useEffect, useState, useContext } from "react";
 import { AuthContext } from "../context/AuthProvider";
 import { Link } from "react-router";
 
-
 const MyCollectionPage = () => {
-  const { user } = useContext(AuthContext);
+  const { user, loading } = useContext(AuthContext);
   const [movies, setMovies] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  
+  const BASE_URL = import.meta.env.VITE_API_BASE_URL || "https://assignment-10-server-fcwh.vercel.app";
 
   useEffect(() => {
     if (user?.email) {
-      fetch(`https://assignment-10-server-fcwh.vercel.app/movies?addedBy=${user.email}`)
+      setIsLoading(true);
+      fetch(`${BASE_URL}/movies?addedBy=${user.email}`)
         .then((res) => res.json())
-        .then((data) => setMovies(data))
-        .catch((err) => console.error(err));
+        .then((data) => {
+        
+          const userMovies = data.filter((movie) => movie.addedBy === user.email);
+          setMovies(userMovies);
+          setIsLoading(false);
+        })
+        .catch((err) => {
+          console.error("Error fetching movies:", err);
+          setIsLoading(false);
+        });
+    } else {
+      setMovies([]);
+      setIsLoading(false);
     }
-  }, [user]);
+  }, [user, BASE_URL]);
+
+  if (loading || isLoading) {
+    return <p className="text-center text-gray-500 mt-10">Loading your movies...</p>;
+  }
+
+  if (!user) {
+    return <p className="text-center text-gray-500 mt-10">Please log in to view your collection.</p>;
+  }
 
   return (
     <div className="p-6 max-w-6xl mx-auto">
