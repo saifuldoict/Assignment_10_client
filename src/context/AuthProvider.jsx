@@ -23,10 +23,11 @@ const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  // save user to backend database.
+ 
 
   const saveUserToDB = async (firebaseUser)=>{
     if(!firebaseUser?.email) return;
+    
     const userData = {
       name: firebaseUser.displayName || "User",
       email: firebaseUser.email,
