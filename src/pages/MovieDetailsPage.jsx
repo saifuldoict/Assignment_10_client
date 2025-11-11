@@ -22,7 +22,7 @@ const MovieDetailsPage = () => {
 
     fetch(`https://assignment-10-server-fcwh.vercel.app/movies/${movie._id}`, {
       method: "DELETE",
-      //http://localhost:5000
+  
     })
       .then((res) => res.json())
       .then((data) => {

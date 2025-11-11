@@ -12,7 +12,7 @@ const LoginPage = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  // Redirect to home page after login
+
   const from = location.state?.from?.pathname || "/";
 
   const handleLogin = async (e) => {
