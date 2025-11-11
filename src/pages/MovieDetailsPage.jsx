@@ -10,7 +10,7 @@ const MovieDetailsPage = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch(`https://assignment-10-server-fcwh.vercel.app/movies/${loaderMovie._id}`)
+    fetch(`https://assignment-10-server-fcwh.vercel.app/${loaderMovie._id}`)
       .then((res) => res.json())
       .then((data) => setMovie(data))
       .catch((err) => console.error(err));
@@ -22,6 +22,7 @@ const MovieDetailsPage = () => {
 
     fetch(`https://assignment-10-server-fcwh.vercel.app/movies/${movie._id}`, {
       method: "DELETE",
+      //http://localhost:5000
     })
       .then((res) => res.json())
       .then((data) => {

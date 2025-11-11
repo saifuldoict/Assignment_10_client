@@ -33,6 +33,7 @@ const UpdateMoviePage = () => {
       .then((data) => {
         setMovie(data);
         setLoading(false);
+       
       })
       .catch((err) => console.error(err));
   }, [id]);
@@ -56,6 +57,7 @@ const UpdateMoviePage = () => {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(movie),
+     
     })
       .then((res) => {
         if (!res.ok) throw new Error("Failed to update movie");
