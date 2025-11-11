@@ -8,12 +8,12 @@ const MyCollectionPage = () => {
   const [isLoading, setIsLoading] = useState(true);
 
   
-  const BASE_URL = import.meta.env.VITE_API_BASE_URL || "https://assignment-10-server-fcwh.vercel.app";
+
 
   useEffect(() => {
     if (user?.email) {
       setIsLoading(true);
-      fetch(`${BASE_URL}/movies?addedBy=${user.email}`)
+      fetch(`https://assignment-10-server-fcwh.vercel.app/movies?addedBy=${user.email}`)
         .then((res) => res.json())
         .then((data) => {
         
@@ -29,7 +29,7 @@ const MyCollectionPage = () => {
       setMovies([]);
       setIsLoading(false);
     }
-  }, [user, BASE_URL]);
+  }, [user]);
 
   if (loading || isLoading) {
     return <p className="text-center text-gray-500 mt-10">Loading your movies...</p>;

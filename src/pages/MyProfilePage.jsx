@@ -26,9 +26,9 @@ const MyProfilePage = () => {
     setUpdating(true);
     try {
       await updateUserProfile({ displayName: name, photoURL });
-      toast.success("✅ Profile updated successfully!");
+      toast.success(" Profile updated successfully!");
     } catch (err) {
-      toast.error("❌ " + err.message);
+      toast.error( err.message);
     } finally {
       setUpdating(false);
     }
