@@ -1,16 +1,31 @@
-# React + Vite
+🧭 MovieMaster – Your Ultimate Movie Collection Platform
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+🎬 Live Site URL: https://monumental-mousse-8c68f6.netlify.app/
 
-Currently, two official plugins are available:
+🚀 About MovieMaster
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+MovieMaster is a modern web application where users can explore, add, and manage their favorite movies. It offers an engaging interface, personalized collections, and smooth performance — built with the MERN stack.
 
-## React Compiler
+🌟 Key Features
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+🎥 Browse All Movies: Explore a vast collection of movies displayed in a responsive grid layout.
 
-## Expanding the ESLint configuration
+🔐 User Authentication: Secure login and registration with Firebase authentication.
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+📚 Personal Movie Collection: Add your favorite movies to your personal collection for easy access.
+
+🌈 Dark/Light Mode: Switch between themes for comfortable viewing anytime.
+
+⚡ Real-time Updates: Instantly see new movies or changes without page reloads.
+
+📱 Fully Responsive Design: Optimized for mobile, tablet, and desktop users.
+
+🛠️ Technologies Used
+
+Frontend: React.js, Tailwind CSS, React Router, Context
+
+Backend: Node.js, Express.js, MongoDB
+
+Authentication: Firebase Auth
+
+Deployment: Netlify (Frontend) & Vercel (Backend)
