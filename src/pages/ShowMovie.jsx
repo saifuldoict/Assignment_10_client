@@ -1,9 +1,15 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Star } from "lucide-react";
 import { Link } from "react-router";
+import { AuthContext } from "../context/AuthProvider";
 
 const ShowMovie = ({ movie }) => {
   const { _id, title, rating, genre, releaseYear, posterUrl } = movie;
+
+  const { watchlist, addToWatchlist, removeFromWatchlist } = useContext(AuthContext);
+
+
+  const isInWatchlist = watchlist.some((m) => m._id === _id);
 
   const stars = Array.from({ length: 5 }, (_, index) => index < rating);
 
@@ -27,12 +33,24 @@ const ShowMovie = ({ movie }) => {
         <p className="text-gray-600 text-sm mb-4">
           <span className="font-semibold">Release:</span> {releaseYear}
         </p>
-        <Link
-          to={`/movies/${_id}`}
-          className="inline-block bg-blue-600 w-full text-white text-center px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors text-sm font-medium"
-        >
-          Details
-        </Link>
+
+        <div className="flex flex-col gap-2">
+          <Link
+            to={`/movies/${_id}`}
+            className="inline-block bg-blue-600 w-full text-white text-center px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors text-sm font-medium"
+          >
+            Details
+          </Link>
+
+          <button
+            onClick={() => (isInWatchlist ? removeFromWatchlist(_id) : addToWatchlist(movie))}
+            className={`inline-block w-full text-center px-4 py-2 rounded-lg transition-colors text-sm font-medium ${
+              isInWatchlist ? "bg-red-500 text-white hover:bg-red-600" : "bg-green-500 text-white hover:bg-green-600"
+            }`}
+          >
+            {isInWatchlist ? "Remove from Watchlist" : "Add to Watchlist"}
+          </button>
+        </div>
       </div>
     </div>
   );

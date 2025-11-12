@@ -6,6 +6,7 @@ import { AuthContext } from "../../context/AuthProvider";
 import DarkMode from "./DarkMode";
 
 
+
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -37,19 +38,24 @@ const Navbar = () => {
           <div className="flex justify-between items-center h-16 navbar">
       
             <div className="">
-              <Link to={"/"} className="flex items-center gap-2">
+              <div>
+                <Link to={"/"} className="flex items-center gap-2">
                 <button
                   onClick={() => handleNavigation("/")}
-                  className="font-bold text-lg"
+                  className="font-bold text-lg text-pink-600"
                 >
                   MovieMaster Pro
                 </button>
               </Link>
-               <DarkMode/>
+              </div>
+                  <div className="  p-2.5 justify-center items-center mr-8.5 ">
+                    <DarkMode/>
+                  </div>
             </div>
 
          
             <div className="hidden md:flex flex-1 justify-center px-3 relative">
+              
               <input
                 type="text"
                 placeholder="Search movies..."
@@ -59,7 +65,8 @@ const Navbar = () => {
             </div>
 
      
-            <div className="hidden md:flex items-center gap-3 font-bold text-green-600">
+            <div className="hidden md:flex items-center gap-3 font-bold text-pink-600">
+              
               <ul className="flex items-center gap-6">
                 <button
                   onClick={() => handleNavigation("/")}
@@ -80,6 +87,12 @@ const Navbar = () => {
                   My Collection
                 </button>
                 <button
+                  onClick={() => handleNavigation("/watchList")}
+                  className="link link-hover"
+                >
+                  My WatchList
+                </button>
+                <button
                   onClick={() => handleNavigation("/add-movie")}
                   className="link link-hover"
                 >
@@ -97,6 +110,7 @@ const Navbar = () => {
 
       
               <div className="flex items-center gap-4">
+                
                 {user ? (
                   <div className="relative group flex items-center gap-2">
                     <img
@@ -117,20 +131,21 @@ const Navbar = () => {
                 ) : (
                   <>
                     <Link to="/login">
-                      <button className="btn bg-green-500 text-white">
+                      <button className="btn bg-pink-500 text-white">
                         Login
                       </button>
                     </Link>
                     <Link to="/register">
                       <button className="btn btn-outline">Register</button>
                     </Link>
+                    
                     <div>
                     
-                   
+                
                 </div>
                   </>
                 )}
-                
+               
               </div>
              
             </div>
@@ -149,6 +164,7 @@ const Navbar = () => {
      
         {isOpen && (
           <div className="md:hidden bg-white shadow-md p-4 flex flex-col gap-4">
+           
             {/* Search Bar (mobile) */}
             <div className="relative">
               <input
@@ -159,6 +175,7 @@ const Navbar = () => {
               <FiSearch className="absolute left-[calc(95%-6rem)] top-1/2 -translate-y-1/2 text-gray-500" />
             </div>
 
+            
             <button
               onClick={() => handleNavigation("/")}
               className="link link-hover"
@@ -219,7 +236,7 @@ const Navbar = () => {
             )}
 
             <div>
-                   <DarkMode />
+                   
                 </div>
           </div>
           

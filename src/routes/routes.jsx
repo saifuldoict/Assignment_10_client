@@ -20,6 +20,7 @@ import TopRatedMovies from "../pages/TopRatedMovies";
 import GenreSection from "../pages/GenreSection";
 import AddMoviePage from "../pages/AddMoviePage";
 import Layout from "../components/Layout";
+import MyWatchList from "../pages/MyWatchList";
 
 
 
@@ -88,6 +89,10 @@ const router = createBrowserRouter([
                 element:<PrivateRoute>
                     <AddMoviePage/>
                 </PrivateRoute>
+            }
+            ,{
+                path: '/watchList',
+                element:<MyWatchList/>
             }
            
             

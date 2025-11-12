@@ -1,5 +1,4 @@
-
-import React,{ createContext, useState,useEffect } from "react";
+import React, { createContext, useState, useEffect } from "react";
 import {
   getAuth,
   createUserWithEmailAndPassword,
@@ -15,60 +14,87 @@ import app from "../firebase/firebase.init";
 
 export const AuthContext = createContext();
 
-
 const auth = getAuth(app);
 const googleProvider = new GoogleAuthProvider();
 
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [watchlist, setWatchlist] = useState([]);
 
- 
 
-  const saveUserToDB = async (firebaseUser)=>{
-    if(!firebaseUser?.email) return;
-    
+  const saveUserToDB = async (firebaseUser) => {
+    if (!firebaseUser?.email) return;
+
     const userData = {
       name: firebaseUser.displayName || "User",
       email: firebaseUser.email,
       photoURL: firebaseUser.photoURL || "",
       createdAt: new Date(),
     };
-    try{
+    try {
       await fetch("https://assignment-10-server-fcwh.vercel.app/users", {
         method: "POST",
-        headers: {"Content-Type": "application/json"},
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify(userData),
       });
-
-    } catch (error){
-      console.error("Failed to save user to DB", error)
+    } catch (error) {
+      console.error("Failed to save user to DB", error);
     }
   };
+
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser || null);
       setLoading(false);
+
+
+      if (currentUser?.email) {
+        const stored = localStorage.getItem(`watchlist_${currentUser.email}`);
+        setWatchlist(stored ? JSON.parse(stored) : []);
+      } else {
+        setWatchlist([]);
+      }
     });
 
     return () => unsubscribe();
   }, []);
 
- 
+
+  useEffect(() => {
+    if (user?.email) {
+      localStorage.setItem(`watchlist_${user.email}`, JSON.stringify(watchlist));
+    }
+  }, [watchlist, user?.email]);
+
+
+  const addToWatchlist = (movie) => {
+    setWatchlist((prev) => {
+      if (!prev.find((m) => m._id === movie._id)) {
+        return [...prev, movie];
+      }
+      return prev;
+    });
+  };
+
+  const removeFromWatchlist = (id) => {
+    setWatchlist((prev) => prev.filter((m) => m._id !== id));
+  };
+
+
   const registerUser = async (name, email, password, photoURL) => {
     setLoading(true);
     try {
       const result = await createUserWithEmailAndPassword(auth, email, password);
       await updateProfile(result.user, { displayName: name, photoURL });
-      await saveUserToDB(result.user, {displayName: name, photoURL});
+      await saveUserToDB(result.user);
       setUser(result.user);
       return result.user;
     } finally {
       setLoading(false);
     }
   };
-
 
   const loginUser = async (email, password) => {
     setLoading(true);
@@ -80,7 +106,6 @@ const AuthProvider = ({ children }) => {
       setLoading(false);
     }
   };
-
 
   const loginWithGoogle = async () => {
     setLoading(true);
@@ -94,17 +119,16 @@ const AuthProvider = ({ children }) => {
     }
   };
 
-
   const logOut = async () => {
     setLoading(true);
     try {
       await signOut(auth);
       setUser(null);
+      setWatchlist([]);
     } finally {
       setLoading(false);
     }
   };
-
 
   const updateUserProfile = async (profile) => {
     if (!auth.currentUser) throw new Error("No user is logged in");
@@ -112,17 +136,18 @@ const AuthProvider = ({ children }) => {
     setUser({ ...auth.currentUser });
   };
 
-
   const resetPassword = async (email) => {
     if (!email) throw new Error("Please provide an email");
     await sendPasswordResetEmail(auth, email);
     return true;
   };
 
-
   const authInfo = {
     user,
     loading,
+    watchlist,
+    addToWatchlist,
+    removeFromWatchlist,
     registerUser,
     loginUser,
     loginWithGoogle,
