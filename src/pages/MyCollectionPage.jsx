@@ -62,7 +62,7 @@ const MyCollectionPage = () => {
                 className="w-full h-64 object-cover"
               />
               <div className="p-4">
-                <h3 className="text-xl font-semibold mb-2">{movie.title}</h3>
+                <h3 className="text-xl font-semibold mb-2 text-pink-600">{movie.title}</h3>
                 <p className="text-gray-700 mb-2">
                   <span className="font-semibold">Genre:</span> {movie.genre}
                 </p>

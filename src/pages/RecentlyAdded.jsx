@@ -51,7 +51,7 @@ const RecentlyAdded = () => {
               alt={movie.title}
               className="w-full h-60 object-cover rounded-lg mb-4"
             />
-            <h3 className="text-xl font-semibold">{movie.title}</h3>
+            <h3 className="text-xl font-semibold text-pink-600">{movie.title}</h3>
             <p className="text-gray-600 mt-1">Rating: {movie.rating}</p>
             <p className="text-gray-500 text-sm mt-1">{movie.genre}</p>
             <p className="text-gray-400 text-xs mt-1">

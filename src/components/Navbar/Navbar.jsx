@@ -183,7 +183,7 @@ const Navbar = () => {
               Home
             </button>
             <button
-              onClick={() => handleNavigation("/allMovies")}
+               onClick={() => handleNavigation("/movies")}
               className="link link-hover"
             >
               All Movies
@@ -194,6 +194,12 @@ const Navbar = () => {
             >
               My Collection
             </button>
+            <button
+                  onClick={() => handleNavigation("/watchList")}
+                  className="link link-hover"
+                >
+                  My WatchList
+                </button>
             <button
                   onClick={() => handleNavigation("/add-movie")}
                   className="link link-hover"

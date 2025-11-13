@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import { AuthContext } from "../context/AuthProvider";
 import { Link } from "react-router";
-
+import { toast } from "react-toastify";
 const MyWatchList = () => {
   const { watchlist, removeFromWatchlist } = useContext(AuthContext);
 
@@ -16,7 +16,7 @@ const MyWatchList = () => {
         {watchlist.map((movie) => (
           <div key={movie._id} className="border p-3 rounded shadow">
             <Link to={`/movies/${movie._id}`}>
-              <img src={movie.posterUrl} alt={movie.title} className="mb-2" />
+              <img src={movie.posterUrl} alt={movie.title} className="mb-2 w-full h-[200px]" />
               <h3 className="font-semibold">{movie.title}</h3>
             </Link>
             <button
